@@ -5,6 +5,7 @@ import config from 'config'
 
 import items from './routes/api/items'
 import users from './routes/api/users'
+import auth from './routes/api/auth'
 
 const app = express()
 
@@ -27,6 +28,7 @@ mongoose
 // Use Routes
 app.use('/api/items', items)
 app.use('/api/users', users)
+app.use('/api/auth', auth)
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
