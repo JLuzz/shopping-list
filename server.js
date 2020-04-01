@@ -1,26 +1,32 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
 import path from 'path'
+import config from 'config'
 
 import items from './routes/api/items'
+import users from './routes/api/users'
 
 const app = express()
 
 // Bodyparser Middleware
-app.use(bodyParser.json())
+app.use(express.json())
 
 // DB config
-import db from './config/keys'
+const db = config.get('mongoURI')
 
 // Connect to Mongo
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err))
 
 // Use Routes
 app.use('/api/items', items)
+app.use('/api/users', users)
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
