@@ -2,8 +2,9 @@ import express from 'express'
 import bcrypt from 'bcryptjs'
 const router = express.Router()
 import jwt from 'jsonwebtoken'
-
 import config from 'config'
+
+import auth from '../../middlware/auth'
 
 // User model
 import User from '../../models/User'
@@ -43,6 +44,15 @@ router.post('/', (req, res) => {
       )
     })
   })
+})
+
+// @route   GET api/auth/user
+// @desc    Ger user data
+// @access  Private
+router.get('/user', auth, (req, res) => {
+  User.findById(req.user.id)
+    .select('-password')
+    .then(user => res.json(user))
 })
 
 export default router
