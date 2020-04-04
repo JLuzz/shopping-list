@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
   Modal,
@@ -11,18 +10,27 @@ import {
   Label,
   Input,
   NavLink,
+  Alert,
 } from 'reactstrap'
 
+import { register } from '../../actions/authActions'
+import { clearErrors } from '../../actions/errorActions'
+
 const RegisterModal = ({ ...props }) => {
+  const dispatch = useDispatch()
   const [modal, setModal] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [msg, setMsg] = useState(null)
-  const isAuthenticated = useSelector((state) => state.isAuthenticated)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
   const error = useSelector((state) => state.error)
 
-  const toggle = () => setModal(!modal)
+  const toggle = () => {
+    //  Clear errors
+    dispatch(clearErrors())
+    setModal(!modal)
+  }
 
   const onNameChange = (e) => {
     setName(e.target.value)
@@ -39,9 +47,20 @@ const RegisterModal = ({ ...props }) => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    // Close modal
-    toggle()
+    // Create User object
+    const newUser = { name, email, password }
+    dispatch(register(newUser))
   }
+
+  useEffect(() => {
+    if (error.id == 'REGISTER_FAIL') setMsg(error.msg.msg)
+    else setMsg(null)
+  }, [error])
+
+  useEffect(() => {
+    // If authenticated, close modal
+    if (modal && isAuthenticated) toggle()
+  })
 
   return (
     <div>
@@ -52,6 +71,7 @@ const RegisterModal = ({ ...props }) => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Register</ModalHeader>
         <ModalBody>
+          {msg && <Alert color="danger">{msg}</Alert>}
           <Form onSubmit={onSubmit}>
             <FormGroup>
               <Label for="name">Name</Label>
@@ -59,6 +79,7 @@ const RegisterModal = ({ ...props }) => {
                 type="text"
                 id="name"
                 placeholder="Name"
+                className="mb-3"
                 onChange={onNameChange}
               />
 
@@ -67,6 +88,7 @@ const RegisterModal = ({ ...props }) => {
                 type="text"
                 id="email"
                 placeholder="Email"
+                className="mb-3"
                 onChange={onEmailChange}
               />
 
@@ -75,6 +97,7 @@ const RegisterModal = ({ ...props }) => {
                 type="text"
                 id="password"
                 placeholder="Password"
+                className="mb-3"
                 onChange={onPasswordChange}
               />
 
@@ -87,11 +110,6 @@ const RegisterModal = ({ ...props }) => {
       </Modal>
     </div>
   )
-}
-
-RegisterModal.propTypes = {
-  isAuthenticated: PropTypes.bool,
-  error: PropTypes.object.isRequired,
 }
 
 export default RegisterModal

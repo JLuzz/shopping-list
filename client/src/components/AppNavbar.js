@@ -6,11 +6,11 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   Container,
 } from 'reactstrap'
 
 import RegisterModal from './auth/RegisterModal'
+import Logout from './auth/Logout'
 
 const AppNavbar = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -27,6 +27,9 @@ const AppNavbar = ({ ...props }) => {
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <RegisterModal />
+              </NavItem>
+              <NavItem>
+                <Logout />
               </NavItem>
             </Nav>
           </Collapse>
