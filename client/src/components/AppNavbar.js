@@ -10,7 +10,9 @@ import {
   Container,
 } from 'reactstrap'
 
-const AppNavbar = props => {
+import RegisterModal from './auth/RegisterModal'
+
+const AppNavbar = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggle = () => setIsOpen(!isOpen)
@@ -24,7 +26,7 @@ const AppNavbar = props => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="https://github.com/JLuzz">Github</NavLink>
+                <RegisterModal />
               </NavItem>
             </Nav>
           </Collapse>
