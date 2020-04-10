@@ -13,7 +13,7 @@ const ShoppingList = () => {
 
   useEffect(() => {
     dispatch(getItems())
-  }, [])
+  }, [dispatch])
 
   return (
     <Container>
