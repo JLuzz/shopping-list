@@ -27,7 +27,7 @@ const ShoppingList = () => {
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={() => deleteItem(_id)}
+                    onClick={() => dispatch(deleteItem(_id))}
                   >
                     &times;
                   </Button>
