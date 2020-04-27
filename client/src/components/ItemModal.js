@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   Button,
   Modal,
@@ -12,6 +13,7 @@ import {
 import { addItem } from '../actions/itemActions'
 
 const ItemModal = () => {
+  const dispatch = useDispatch()
   const [modal, setModal] = useState(false)
   const [name, setName] = useState('')
 
@@ -29,7 +31,7 @@ const ItemModal = () => {
     }
 
     // Add item via addItem action
-    addItem(newItem)
+    dispatch(addItem(newItem))
 
     // Close modal
     toggle()
