@@ -94,7 +94,7 @@ const RegisterModal = ({ ...props }) => {
 
               <Label for="password">Password</Label>
               <Input
-                type="text"
+                type="password"
                 id="password"
                 placeholder="Password"
                 className="mb-3"
