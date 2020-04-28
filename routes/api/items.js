@@ -8,7 +8,7 @@ import Item from '../../models/Item'
 
 // @route   GET api/items
 // @desc    Get all items
-// @access  Public
+// @access  Private
 router.get('/', auth, (req, res) => {
   Item.find()
     .sort({ date: -1 })
