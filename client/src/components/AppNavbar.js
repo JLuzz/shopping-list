@@ -10,35 +10,13 @@ import {
 } from 'reactstrap'
 import { useSelector } from 'react-redux'
 
-import LoginModal from './auth/LoginModal'
 import Logout from './auth/Logout'
 
-const AppNavbar = ({ ...props }) => {
+const AppNavbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth)
   const [isOpen, setIsOpen] = useState(false)
 
   const toggle = () => setIsOpen(!isOpen)
-
-  const authLinks = (
-    <Fragment>
-      <NavItem>
-        <span className="navbar-text mr-3">
-          <strong>{user ? `Welcome ${user.name}` : ''}</strong>
-        </span>
-      </NavItem>
-      <NavItem>
-        <Logout />
-      </NavItem>
-    </Fragment>
-  )
-
-  const guestLinks = (
-    <Fragment>
-      <NavItem>
-        <LoginModal />
-      </NavItem>
-    </Fragment>
-  )
 
   return (
     <div>
@@ -48,7 +26,18 @@ const AppNavbar = ({ ...props }) => {
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {isAuthenticated ? authLinks : guestLinks}
+              {isAuthenticated && (
+                <Fragment>
+                  <NavItem>
+                    <span className="navbar-text mr-3">
+                      <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+                    </span>
+                  </NavItem>
+                  <NavItem>
+                    <Logout />
+                  </NavItem>
+                </Fragment>
+              )}
             </Nav>
           </Collapse>
         </Container>

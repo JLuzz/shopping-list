@@ -1,13 +1,14 @@
 import { Container } from 'reactstrap'
-import { useEffect } from 'react'
 import { Provider } from 'react-redux'
+import React from 'react'
+import { useEffect } from 'react'
+
 import AppNavBar from './components/AppNavbar'
 import ItemModal from './components/ItemModal'
-import React from 'react'
+import { loadUser } from './actions/authActions'
+import Login from './components/auth/Login'
 import ShoppingList from './components/ShoppingList'
 import store from './store'
-
-import { loadUser } from './actions/authActions'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
@@ -21,10 +22,9 @@ const App = () => {
     <Provider store={store}>
       <div className="App">
         <AppNavBar />
-        <Container>
-          <ItemModal />
-          <ShoppingList />
-        </Container>
+        <Login />
+        {/* <ItemModal />
+          <ShoppingList /> */}
       </div>
     </Provider>
   )
