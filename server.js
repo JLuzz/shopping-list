@@ -4,7 +4,6 @@ import path from 'path'
 import config from 'config'
 
 import items from './routes/api/items'
-import users from './routes/api/users'
 import auth from './routes/api/auth'
 
 const app = express()
@@ -20,14 +19,13 @@ mongoose
   .connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
   })
   .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err))
+  .catch((err) => console.log(err))
 
 // Use Routes
 app.use('/api/items', items)
-app.use('/api/users', users)
 app.use('/api/auth', auth)
 
 // Serve static assets if in production

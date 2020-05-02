@@ -10,7 +10,6 @@ import {
 } from 'reactstrap'
 import { useSelector } from 'react-redux'
 
-import RegisterModal from './auth/RegisterModal'
 import LoginModal from './auth/LoginModal'
 import Logout from './auth/Logout'
 
@@ -35,9 +34,6 @@ const AppNavbar = ({ ...props }) => {
 
   const guestLinks = (
     <Fragment>
-      <NavItem>
-        <RegisterModal />
-      </NavItem>
       <NavItem>
         <LoginModal />
       </NavItem>
