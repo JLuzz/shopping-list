@@ -18,6 +18,10 @@ const formStyle = {
   maxHeight: 420,
 }
 
+const buttonStyle = {
+  marginTop: '2rem',
+}
+
 const Login = () => {
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
@@ -73,7 +77,7 @@ const Login = () => {
             onChange={onPasswordChange}
           />
 
-          <Button color="dark" style={{ marginTop: '2rem' }} block>
+          <Button color="dark" style={buttonStyle} block>
             Login
           </Button>
         </FormGroup>
