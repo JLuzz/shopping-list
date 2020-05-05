@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useSelector, useDispatch } from 'react-redux'
-import { getItems, deleteItem } from '../actions/itemActions'
 import PropTypes from 'prop-types'
+
+import { getItems, deleteItem } from '../actions/itemActions'
+import ItemModal from '../components/ItemModal'
 
 const ShoppingList = () => {
   const dispatch = useDispatch()
@@ -17,6 +19,7 @@ const ShoppingList = () => {
 
   return (
     <Container>
+      <ItemModal />
       <ListGroup>
         <TransitionGroup className="shopping-list">
           {!itemsLoading &&
