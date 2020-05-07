@@ -1,9 +1,11 @@
 import { Container } from 'reactstrap'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import React from 'react'
 import { useEffect } from 'react'
 
 import AppNavBar from './components/AppNavbar'
+import AuthenticatedRoute from './components/auth/authenticated-route'
 import ItemModal from './components/ItemModal'
 import { loadUser } from './actions/authActions'
 import Login from './components/auth/Login'
@@ -20,12 +22,22 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <div className="App">
-        <AppNavBar />
-        <Login />
-        {/* <ItemModal />
-          <ShoppingList /> */}
-      </div>
+      <Router>
+        <div className="App">
+          <AppNavBar />
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <AuthenticatedRoute path="/">
+              <Container>
+                <ItemModal />
+                <ShoppingList />
+              </Container>
+            </AuthenticatedRoute>
+          </Switch>
+        </div>
+      </Router>
     </Provider>
   )
 }
