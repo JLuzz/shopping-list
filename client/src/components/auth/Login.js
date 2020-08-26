@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
@@ -24,10 +25,14 @@ const buttonStyle = {
 
 const Login = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
+  const location = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [msg, setMsg] = useState(null)
   const error = useSelector((state) => state.error)
+  const { isAuthenticated } = useSelector((state) => state.auth)
+  const { from } = location.state || { from: { pathname: '/' } }
 
   const onEmailChange = (e) => {
     setEmail(e.target.value)
@@ -53,6 +58,8 @@ const Login = () => {
     if (error.id === 'LOGIN_FAIL') setMsg(error.msg.msg)
     else setMsg(null)
   }, [error])
+
+  if (isAuthenticated) history.replace(from)
 
   return (
     <Container style={formStyle}>
